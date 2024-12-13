@@ -1,0 +1,46 @@
+{
+  "mcpServers": {
+     "brave-search": {
+      "command": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:\\Users\\[Username]\\node_modules\\@modelcontextprotocol\\server-brave-search\\dist\\index.js"
+      ],
+      "env": {
+        "BRAVE_API_KEY": "XXXXXXXXXX"
+      }
+    },
+     "sentinel-writer": {
+      "command": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:\\Users\\[Username]\\node_modules\\@modelcontextprotocol\\server-sentinel-writer\\dist\\index.js"
+      ],
+        "env": {
+            "TENANT_ID": "XXXXXXXXXX",
+            "APP_ID": "XXXXXXXXXX",
+            "APP_SECRET": "XXXXXXXXXX",
+            "DCE_ENDPOINT": "https://XXXXXXXXXX.ingest.monitor.azure.com",          
+            "DCR_ANOMALIES_ID": "dcr-XXXXXXXXXX",
+            "DCR_ASIMAUDITEVENTLOGS_ID": "dcr-XXXXXXXXXX",
+            "DCR_ASIMAUTHENTICATIONEVENTLOGS_ID": "dcr-XXXXXXXXXX",
+            "DCR_ASIMDHCPEVENTLOGS_ID": "dcr-XXXXXXXXXX",
+            "DCR_ASIMDNSACTIVITYLOGS_ID": "dcr-XXXXXXXXXX",
+            "DCR_ASIMFILEEVENTLOGS_ID": "dcr-XXXXXXXXXX",
+            "DCR_ASIMNETWORKSESSIONLOGS_ID": "dcr-XXXXXXXXXX",
+            "DCR_ASIMPROCESSEVENTLOGS_ID": "dcr-XXXXXXXXXX",
+            "DCR_ASIMREGISTRYEVENTLOGS_ID": "dcr-XXXXXXXXXX",
+            "DCR_ASIMUSERMANAGEMENTACTIVITYLOGS_ID": "dcr-XXXXXXXXXX",
+            "DCR_ASIMWEBSESSIONLOGS_ID": "dcr-XXXXXXXXXX",
+            "DCR_AWSCLOUDTRAIL_ID": "dcr-XXXXXXXXXX",
+            "DCR_AWSCLOUDWATCH_ID": "dcr-XXXXXXXXXX",
+            "DCR_AWSGUARDDUTY_ID": "dcr-XXXXXXXXXX",
+            "DCR_AWSVPCFLOW_ID": "dcr-XXXXXXXXXX",            
+            "DCR_COMMONSECURITYLOG_ID": "dcr-XXXXXXXXXX",
+            "DCR_GCPAUDITLOGS_ID": "dcr-XXXXXXXXXX", 
+            "DCR_GOOGLECLOUDSCC_ID": "dcr-XXXXXXXXXX", 
+            "DCR_SECURITYEVENT_ID": "dcr-XXXXXXXXXX",
+            "DCR_SYSLOG_ID": "dcr-XXXXXXXXXX",
+            "DCR_WINDOWSEVENT_ID": "dcr-XXXXXXXXXX"
+        }
+    }     
+  }
+}
