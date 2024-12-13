@@ -32,7 +32,7 @@ The server supports writing to the following Data Collection Rule types:
 
 1. Copy the '**server-sentinel-writer'**  of this repo to your modelcontextprotocol directory.
    On Windows this default is currently:
-   C:\Users\\<username>\node_modules\@modelcontextprotocol\
+   C:\Users\\**USERNAME**\node_modules\@modelcontextprotocol\
 
 2. Deploy ASIM Data Collection Rules to your Azure subscription.
 
@@ -52,6 +52,10 @@ The server supports writing to the following Data Collection Rule types:
 2. Set up Data Collection Rules for the event types you plan to use
 3. Configure necessary permissions and access policies
 4. Obtain required credentials (Client ID, Client Secret, Tenant ID)
+
+Note that the deployment of main.bicep will output te majority of environment variable details that will be required for your Claude desktop configuration file.
+
+
 
 ### Environment Variables
 
