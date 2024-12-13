@@ -23,15 +23,24 @@ This guide provides detailed instructions for installing and setting up the Sent
 
 ## Installation Steps
 
-### 1. Node.js Dependencies
+### 1. Claude Desktop
+
+Download and install Claude Desktop from [Download - Claude](https://claude.ai/download).
+
+### 2. Node.js Dependencies
 
 ```bash
 # Install the Model Context Protocol dependencies
 npm install @modelcontextprotocol/server-brave-search
-npm install @modelcontextprotocol/server-sentinel-writer
+npm install @modelcontextprotocol/sdk
+npm install node-fetch
 ```
 
-### 2. Azure Resource Deployment
+### 3. Azure Resource Deployment
+
+Customise the Bicep parameters.json file with the location of your intended deployment, Log Analytics workspace ID and Service Principal Object ID.
+
+Claude Desktop will need An Entra Application Registration created with an associated key.  Application Registrations are directly linked to an "Enterprise Application" which is also known as a "Service Principal".  The required Service Principal Object ID is found on the Enterprise Application object, not the Application Registration!
 
 Deploy the required Data Collection Rules using the provided Bicep templates:
 
@@ -43,10 +52,28 @@ az deployment group create --resource-group <your-resource-group> --template-fil
 The deployment will create:
 
 - Data Collection Rules for each supported log type
-- Required Data Collection Endpoints
+- A data Data Collection Endpoint
 - Necessary IAM roles and permissions
 
-### 3. Claude Desktop Configuration
+The Bicep output will list element IDs required with the Claude Desktop configuration file:
+
+```json
+    "outputs": {
+      "dcE_ENDPOINT": {
+        "type": "String",
+        "value": "https://simulatordce-c12v.australiasoutheast-1.ingest.monitor.azure.com"
+      },
+      "dcR_ANOMALIES_ID": {
+        "type": "String",
+        "value": "dcr-53295834471905348921345744719021"
+      },
+      "dcR_ASIMAUDITEVENTLOGS_ID": {
+        "type": "String",
+        "value": "dcr-b8d153295834471905348921d8c63f9"
+      },
+```
+
+### 4. Claude Desktop Configuration
 
 1. Navigate to the Claude Desktop configuration directory:
    
@@ -54,7 +81,9 @@ The deployment will create:
    C:\\Users\\[Username]\\AppData\\Roaming\\Claude
    ```
 
-2. Create or modify the claude_desktop_config.json file:
+2. Copy the default claude_desktop_config.json file from the /src folder to the the Claude Desktop configuration directory.  It is presumed that the the Sentinel Writer Model Context Protocol (SWMCP) tool will be used with the Brave Search tool (which is referenced in claude_desktop_config.json and requires its own key).
+   
+   Due to a current bug with the initial release of Claude Desktop support with Model Context Protocol, nde.exe is hardcoded to directly reference MCP servers as arguments.  
    
    ```json
    {
@@ -78,7 +107,7 @@ The deployment will create:
 
 3. Replace all placeholder values with your actual Azure configuration details.
 
-### 4. Environment Configuration
+### 5. Environment Configuration
 
 Ensure all required environment variables are properly set in the claude_desktop_config.json file:
 
@@ -86,9 +115,9 @@ Ensure all required environment variables are properly set in the claude_desktop
 - APP_ID: Azure AD application ID
 - APP_SECRET: Azure AD application secret
 - DCE_ENDPOINT: Data Collection Endpoint URL
-- DCR_*_ID: Data Collection Rule IDs for each log type
+- DCR_*_ID: Data Collection Rule IDs for each log type (will be displayed at the completion of the infrastructure install using the Bicep file provided)
 
-### 5. Verification
+### 6. Verification
 
 To verify the installation:
 

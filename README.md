@@ -26,6 +26,83 @@ The Sentinel Writer Model Context Protocol (SWMCP) is an advanced tool designed 
 
 Detailed installation and configuration instructions can be found in the [Installation Guide](docs/installation.md).
 
+Project Structure
+
+```
+PUBLIC-Sentinel-Attack-Simulator/
+├── .git/                           # Git repository data
+├── docs/                           # Documentation files
+│   ├── installation.md            # Installation instructions
+│   ├── configuration.md           # Configuration guide
+│   ├── architecture.md            # Architecture documentation
+│   └── usage.md                   # Usage guide
+├── infrastructure/                 # Azure infrastructure as code
+│   ├── main.bicep                # Main Bicep deployment template
+│   ├── parameters.json           # Deployment parameters
+│   ├── DCR-Anomalies.bicep       # Anomalies DCR template
+│   ├── DCR-ASimAuditEventLogs.bicep
+│   ├── DCR-ASimAuthenticationEventLogs.bicep
+│   ├── DCR-ASimDhcpEventLogs.bicep
+│   ├── DCR-ASimDnsActivityLogs.bicep
+│   ├── DCR-ASimFileEventLogs.bicep
+│   ├── DCR-ASimNetworkSessionLogs.bicep
+│   ├── DCR-ASimProcessEventLogs.bicep
+│   ├── DCR-ASimRegistryEventLogs.bicep
+│   ├── DCR-ASimUserManagementActivityLogs.bicep
+│   ├── DCR-ASimWebSessionLogs.bicep
+│   ├── DCR-AWSCloudTrail.bicep
+│   ├── DCR-AWSCloudWatch.bicep
+│   ├── DCR-AWSGuardDuty.bicep
+│   ├── DCR-AWSVPCFlow.bicep
+│   ├── DCR-CommonSecurityLog.bicep
+│   ├── DCR-GCPAuditLogs.bicep
+│   ├── DCR-GoogleCloudSCC.bicep
+│   ├── DCR-SecurityEvent.bicep
+│   ├── DCR-Syslog.bicep
+│   └── DCR-WindowsEvent.bicep
+├── src/                           # Source code
+│   ├── claude_desktop_config.json # Claude Desktop configuration
+│   └── server-sentinel-writer/    # Sentinel Writer MCP server
+├── README.md                      # Project README
+└── PROJECT.md                     # This file - Project structure and documentation map
+```
+
+## Key Components
+
+### Infrastructure Components
+
+1. **Data Collection Rules (DCRs)**
+   
+   - ASIM (Advanced Security Information Model) templates
+   - Cloud provider log templates (AWS, GCP)
+   - Traditional security log templates
+   - System event templates
+
+2. **Source Code**
+   
+   - Claude Desktop configuration
+   - Sentinel Writer MCP server implementation
+   - Supporting utilities and tools
+
+### Integration Points
+
+1. **Claude Desktop Integration**
+   
+   - MCP server configuration
+   - Event generation interface
+
+2. **Azure Integration**
+   
+   - Data Collection Endpoints
+   - Data Collection Rules
+   - Microsoft Sentinel workspace
+
+3. **Model Context Protocol**
+   
+   - Brave Search integration (optional)
+   - Event generation protocol
+   - Server communication
+
 ## Documentation
 
 - [Installation Guide](docs/installation.md)
