@@ -39,6 +39,7 @@ const fieldValidators = {
     }
 };
 
+
 export const validateEvent = async (eventData) => {
     const errors = [];
     const currentTime = getCurrentTimeMs();
@@ -75,20 +76,53 @@ export const validateEvent = async (eventData) => {
                 }
                 break;
             case 'int':
-                if (typeof value !== 'int') {
-                    errors.push(`${fieldName} must be a int, received ${typeof value}`);
-                }
+                  if (typeof value !== 'number' || !Number.isInteger(value)) {
+                      errors.push(`${fieldName} must be an integer, received ${typeof value}`);
+                  }
                 break;
             case 'string':
                     if (typeof value !== 'string') {
                         errors.push(`${fieldName} must be a string, received ${typeof value}`);
                     }
                     break;
-            case 'dynamic':
-                if (typeof value !== 'object' || value === null) {
-                    errors.push(`${fieldName} must be a JSON object, received ${typeof value}`);
-                }
-                break;
+            case 'json_array':
+    // First check if it's an array specifically
+    if (!Array.isArray(value)) {
+        errors.push(`${fieldName} must be a JSON array, received ${Array.isArray(value) ? 'array' : typeof value}`);
+        break;
+    }
+        
+    // Validate each element in the array is a valid JSON object
+    for (let i = 0; i < value.length; i++) {
+        const element = value[i];
+        
+        // Check if element is an object
+        if (typeof element !== 'object' || element === null) {
+            errors.push(`${fieldName}[${i}] must be a JSON object, received ${typeof element}`);
+            continue;
+        }
+        
+        // Check if element is serializable (optional but recommended)
+        try {
+            JSON.stringify(element);
+        } catch (e) {
+            errors.push(`${fieldName}[${i}] contains non-serializable values`);
+        }
+        
+        // Check for circular references (optional but recommended)
+        const seen = new WeakSet();
+        const hasCircular = (obj) => {
+            if (typeof obj !== 'object' || obj === null) return false;
+            if (seen.has(obj)) return true;
+            seen.add(obj);
+            return Object.values(obj).some(val => hasCircular(val));
+        };
+        
+        if (hasCircular(element)) {
+            errors.push(`${fieldName}[${i}] contains circular references`);
+        }
+    }
+    break;
         }
 
         // Then check specific field validation if it exists
@@ -114,6 +148,7 @@ export const validateEvent = async (eventData) => {
 
     return true;
 };
+
 
 // Enhanced validation rules with descriptions
 export const rules = {

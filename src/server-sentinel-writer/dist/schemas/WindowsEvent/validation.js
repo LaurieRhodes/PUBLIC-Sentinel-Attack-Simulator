@@ -39,6 +39,7 @@ const fieldValidators = {
     }
 };
 
+
 export const validateEvent = async (eventData) => {
     const errors = [];
     const currentTime = getCurrentTimeMs();
@@ -84,7 +85,7 @@ export const validateEvent = async (eventData) => {
                         errors.push(`${fieldName} must be a string, received ${typeof value}`);
                     }
                     break;
-case 'json_array':
+            case 'json_array':
     // First check if it's an array specifically
     if (!Array.isArray(value)) {
         errors.push(`${fieldName} must be a JSON array, received ${Array.isArray(value) ? 'array' : typeof value}`);
@@ -147,6 +148,7 @@ case 'json_array':
 
     return true;
 };
+
 
 // Enhanced validation rules with descriptions
 export const rules = {
